@@ -1,0 +1,67 @@
+# docker-compose.example.yml
+# Example showing how to use different configurations
+
+services:
+  # Example with both services
+  full-secure:
+    build:
+      context: .
+      args:
+        INSTALL_CLOUDFLARE: "true"
+        INSTALL_TAILSCALE: "true"
+    environment:
+      - ENABLE_NEWT=true
+      - ENABLE_CLOUDFLARE=true
+      - ENABLE_TAILSCALE=true
+      - NEWT_ID=${NEWT_ID}
+      - NEWT_SECRET=${NEWT_SECRET}
+      - PANGOLIN_ENDPOINT=${PANGOLIN_ENDPOINT}
+      - CLOUDFLARED_TOKEN=${CLOUDFLARED_TOKEN}
+      - TAILSCALE_AUTHKEY=${TAILSCALE_AUTHKEY}
+      - SERVICE_PORT=8080
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - /dev/net/tun:/dev/net/tun
+
+  # Example with only Cloudflare
+  cloudflare-only:
+    build:
+      context: .
+      args:
+        INSTALL_CLOUDFLARE: "true"
+        INSTALL_TAILSCALE: "false"
+    environment:
+      - ENABLE_CLOUDFLARE=true
+      - CLOUDFLARED_TOKEN=${CLOUDFLARED_TOKEN}
+      - SERVICE_PORT=8080
+
+  # Example with only Tailscale
+  tailscale-only:
+    build:
+      context: .
+      args:
+        INSTALL_CLOUDFLARE: "false"
+        INSTALL_TAILSCALE: "true"
+    environment:
+      - ENABLE_TAILSCALE=true
+      - TAILSCALE_AUTHKEY=${TAILSCALE_AUTHKEY}
+      - SERVICE_PORT=8080
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - /dev/net/tun:/dev/net/tun
+
+  # Example with newt only
+  newt-only:
+    build:
+      context: .
+      args:
+        INSTALL_CLOUDFLARE: "false"
+        INSTALL_TAILSCALE: "false"
+    environment:
+      - ENABLE_NEWT=true
+      - NEWT_ID=${NEWT_ID}
+      - NEWT_SECRET=${NEWT_SECRET}
+      - PANGOLIN_ENDPOINT=${PANGOLIN_ENDPOINT}
+      - SERVICE_PORT=8080
