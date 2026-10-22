@@ -1,5 +1,7 @@
 # Secure Access Gateway with Pangolin, Newt, Cloudflare and Tailscale
 
+[![Discuss on the HHF forum](https://img.shields.io/badge/discuss-forum.hhf.technology-E65100?logo=discourse&logoColor=white)](https://forum.hhf.technology/c/pangolin-newt-tools/newt-cloudflare-tailscale-integration)
+
 This Docker image provides a secure access gateway that integrates Pangolin's Newt client, Cloudflare Tunnels, and Tailscale for flexible and secure access to your services. You can use any combination of these technologies simultaneously to create a secure, zero-trust access layer for your applications.
 
 ## Features
